@@ -1,0 +1,6 @@
+io/github/sisobobo/exception/BaseException.class
+io/github/sisobobo/exception/DaoException.class
+io/github/sisobobo/exception/BizException.class
+io/github/sisobobo/exception/ExceptionFactory.class
+io/github/sisobobo/exception/SysException.class
+io/github/sisobobo/exception/Assert.class

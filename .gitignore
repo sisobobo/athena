@@ -1,4 +1,7 @@
-### eclipse ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
 .apt_generated
 .classpath
 .factorypath
@@ -11,9 +14,8 @@
 *.iws
 *.iml
 *.ipr
-out/
 
-### NetBeans ###
+### BUILD ###
 nbproject/private/
 build/
 nbbuild/
@@ -21,4 +23,8 @@ dist/
 nbdist/
 bin/
 doc/
+target/
+out/
 .DS_Store
+.vscode/settings.json
+${project.build.directory}

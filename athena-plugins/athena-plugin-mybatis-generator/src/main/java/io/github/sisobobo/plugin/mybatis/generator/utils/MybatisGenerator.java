@@ -44,6 +44,7 @@ public class MybatisGenerator {
             ConfigurationParser cp = new ConfigurationParser(warnings);
             Configuration config = cp.parseConfiguration(file);
             //true是覆盖文件
+
             DefaultShellCallback callback = new DefaultShellCallback(overwrite);
             MyBatisGenerator generator = new MyBatisGenerator(config, callback, warnings);
             generator.generate(null);

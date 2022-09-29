@@ -5,7 +5,7 @@ package ${package}.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import ${package}.dao.dataobject.UserDO;
 import ${package}.dao.mapper.UserMapper;
@@ -13,7 +13,7 @@ import ${package}.api.UserService;
 import ${package}.api.model.UserModel;
 
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

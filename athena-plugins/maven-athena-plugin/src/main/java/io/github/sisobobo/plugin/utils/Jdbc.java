@@ -1,4 +1,4 @@
-package io.github.sisobobo.plugin.mybatis.generator.utils;
+package io.github.sisobobo.plugin.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

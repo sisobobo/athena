@@ -1,4 +1,4 @@
-package io.github.sisobobo.plugin.mybatis.generator.utils;
+package io.github.sisobobo.plugin.utils;
 
 import cn.hutool.core.lang.Assert;
 import org.apache.velocity.Template;

@@ -20,6 +20,8 @@
 
         <plugin type="org.mybatis.generator.plugins.CachePlugin"/>
 
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
 
         <plugin type="org.mybatis.generator.plugins.RenameSqlMapperPlugin">

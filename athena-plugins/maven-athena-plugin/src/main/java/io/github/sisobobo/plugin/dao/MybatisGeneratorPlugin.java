@@ -1,6 +1,5 @@
-package io.github.sisobobo.plugin.mybatis.generator;
+package io.github.sisobobo.plugin.dao;
 
-import io.github.sisobobo.plugin.mybatis.generator.utils.MybatisGenerator;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -11,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Mojo(name = "generate")
+@Mojo(name = "generate-mybatis")
 public class MybatisGeneratorPlugin extends AbstractMojo {
 
     private static final Logger log = LoggerFactory.getLogger(MybatisGeneratorPlugin.class);

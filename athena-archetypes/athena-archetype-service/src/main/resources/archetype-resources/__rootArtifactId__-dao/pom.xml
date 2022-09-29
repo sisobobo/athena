@@ -27,7 +27,7 @@
         <plugins>
             <plugin>
                 <groupId>io.github.sisobobo</groupId>
-                <artifactId>athena-plugin-mybatis-generator</artifactId>
+                <artifactId>maven-athena-plugin</artifactId>
                 <version>${athena.components.version}</version>
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/test</url>

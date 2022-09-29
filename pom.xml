@@ -11,6 +11,7 @@
     <modules>
         <module>athena-archetypes</module>
         <module>athena-components</module>
+        <module>athena-plugins</module>
     </modules>
 
     <properties>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!---Mybatis上下文-->
+    <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号,在mysql中要替换成 ` -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <property name="targetJava8" value="true"/>
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+            <property name="suppressJavaInterface" value="true"/>
+        </plugin>
+
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+
+        <plugin type="org.mybatis.generator.plugins.RenameSqlMapperPlugin">
+            <property name="searchString" value="DO" />
+            <property name="replaceString" value="" />
+        </plugin>
+
+        <plugin type="org.mybatis.generator.plugins.RenameJavaMapperPlugin">
+            <property name="searchString" value="DO" />
+            <property name="replaceString" value="" />
+        </plugin>
+
+        <commentGenerator type="org.mybatis.generator.plugins.CommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!--配置数据库的链接信息-->
+        <jdbcConnection driverClass="${jdbc_driver}" connectionURL="${jdbc_url}" userId="${jdbc_username}"
+                        password="${jdbc_password}">
+        </jdbcConnection>
+
+        <!--数据库BigDecimals字段在java中定义-->
+        <javaTypeResolver type="org.mybatis.generator.plugins.JavaTypeResolver">
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成信息 -->
+        <javaModelGenerator targetPackage="${generator_javaModelGenerator_targetPackage}"
+                            targetProject="${targetProject_dao}/src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--Mapper XMl 生成 -->
+        <sqlMapGenerator targetPackage="${generator_sqlMapGenerator_targetPackage}"
+                         targetProject="${targetProject_dao}/src/main/resources">
+        </sqlMapGenerator>
+
+        <!-- Mapper的mapper接口生成 -->
+        <javaClientGenerator targetPackage="${generator_javaClientGenerator_targetPackage}"
+                             targetProject="${targetProject_dao}/src/main/java" type="XMLMAPPER">
+        </javaClientGenerator>
+
+        <!--要生成的表结构-->
+        #foreach($table in $tables)
+            <table tableName="$table.key"
+                   domainObjectName="$table.value"
+                   enableCountByExample="false"
+                   enableDeleteByExample="false"
+                   enableSelectByExample="false"
+                   enableUpdateByExample="false"
+            >
+            </table>
+        #end
+
+    </context>
+
+</generatorConfiguration>

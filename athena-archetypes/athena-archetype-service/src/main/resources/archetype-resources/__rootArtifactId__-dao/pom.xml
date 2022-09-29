@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>${groupId}</groupId>
-        <artifactId>${rootArtifactId}-parent</artifactId>
+        <artifactId>${rootArtifactId}</artifactId>
         <version>${version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -33,7 +33,6 @@
                     <url>jdbc:mysql://localhost:3306/test</url>
                     <username>root</username>
                     <password>root</password>
-                    <overwrite>true</overwrite>
                 </configuration>
             </plugin>
         </plugins>

@@ -7,10 +7,14 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Mojo(name = "generate")
 public class MybatisGeneratorPlugin extends AbstractMojo {
+
+    private static final Logger log = LoggerFactory.getLogger(MybatisGeneratorPlugin.class);
 
     @Parameter(property = "project", required = true, readonly = true)
     private MavenProject project;
@@ -38,6 +42,13 @@ public class MybatisGeneratorPlugin extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        log.info("Parameter: url , value:{}" , url);
+        log.info("Parameter: driver , value:{}" , driver);
+        log.info("Parameter: username , value:{}" , username);
+        log.info("Parameter: password , value:{}" , password);
+        log.info("Parameter: prefix , value:{}" , prefix);
+        log.info("Parameter: overwrite , value:{}" , overwrite);
+        log.info("Parameter: useLombok , value:{}" , useLombok);
         MybatisGenerator.start(url, username, password, prefix, overwrite, driver, project, useLombok);
     }
 }

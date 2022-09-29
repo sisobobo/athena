@@ -31,9 +31,9 @@ public class MybatisGenerator {
         return dataSource;
     }
 
-    public static void start(String url, String user, String pass, String tablePrefix, boolean overwrite, String driver, MavenProject project) {
+    public static void start(String url, String user, String pass, String tablePrefix, Boolean overwrite, String driver, MavenProject project , Boolean useLombok) {
         SimpleDataSource dataSource = simpleDataSource(url, user, pass, driver);
-        VelocityContext context = generateMybatis(tablePrefix, dataSource, project);
+        VelocityContext context = generateMybatis(tablePrefix, dataSource, project , useLombok);
         File file = null;
         try {
             //生成generatorConfig.xml
@@ -51,7 +51,7 @@ public class MybatisGenerator {
             warnings.forEach(s -> log.warn(s));
         } catch (Exception e) {
             log.error("", e);
-            throw new RuntimeException("执行失败");
+            throw new RuntimeException("MybatisGenerator执行失败");
         } finally {
             if (Objects.nonNull(file)) {
                 file.delete();
@@ -61,7 +61,7 @@ public class MybatisGenerator {
     }
 
 
-    public static VelocityContext generateMybatis(String tablePrefix, SimpleDataSource dataSource, MavenProject project) {
+    public static VelocityContext generateMybatis(String tablePrefix, SimpleDataSource dataSource, MavenProject project , Boolean useLombok) {
         VelocityContext velocityContext = new VelocityContext();
         velocityContext.put("generator_javaModelGenerator_targetPackage", project.getGroupId() + ".dao.dataobject");
         velocityContext.put("targetProject_dao", project.getBasedir());
@@ -71,6 +71,7 @@ public class MybatisGenerator {
         velocityContext.put("jdbc_url", dataSource.getUrl());
         velocityContext.put("jdbc_username", dataSource.getUser());
         velocityContext.put("jdbc_password", dataSource.getPass());
+        velocityContext.put("useLombok" , useLombok);
         List<Pair<String, String>> tables = findTables(dataSource, tablePrefix);
         velocityContext.put("tables", tables);
         return velocityContext;

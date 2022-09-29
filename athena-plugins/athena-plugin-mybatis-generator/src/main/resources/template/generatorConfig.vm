@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+
     <!---Mybatis上下文-->
     <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
 
@@ -15,20 +16,28 @@
 
         <property name="targetJava8" value="true"/>
 
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin">
-            <property name="suppressJavaInterface" value="true"/>
-        </plugin>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <plugin type="org.mybatis.generator.plugins.CachePlugin"/>
 
         <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
 
         <plugin type="org.mybatis.generator.plugins.RenameSqlMapperPlugin">
-            <property name="searchString" value="DO" />
-            <property name="replaceString" value="" />
+            <property name="searchString" value="DO"/>
+            <property name="replaceString" value=""/>
         </plugin>
 
         <plugin type="org.mybatis.generator.plugins.RenameJavaMapperPlugin">
-            <property name="searchString" value="DO" />
-            <property name="replaceString" value="" />
+            <property name="searchString" value="DO"/>
+            <property name="replaceString" value=""/>
+        </plugin>
+
+        #if(!$useLombok)
+            <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        #end
+
+        <plugin type="org.mybatis.generator.plugins.DataObjectPlugin">
+            <property name="useLombok" value="${useLombok}"/>
         </plugin>
 
         <commentGenerator type="org.mybatis.generator.plugins.CommentGenerator">

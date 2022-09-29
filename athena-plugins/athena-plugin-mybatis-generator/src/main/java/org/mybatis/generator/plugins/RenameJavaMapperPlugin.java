@@ -5,6 +5,7 @@ import org.mybatis.generator.api.PluginAdapter;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,10 +17,16 @@ public class RenameJavaMapperPlugin extends PluginAdapter {
     private String replaceString;
     private Pattern pattern;
 
+
     @Override
-    public boolean validate(List<String> warnings) {
+    public void setProperties(Properties properties) {
+        super.setProperties(properties);
         searchString = properties.getProperty("searchString");
         replaceString = properties.getProperty("replaceString");
+    }
+
+    @Override
+    public boolean validate(List<String> warnings) {
         boolean valid = stringHasValue(searchString)
                 && Objects.nonNull(replaceString);
         if (valid) {

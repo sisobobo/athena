@@ -118,6 +118,13 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>io.github.sisobobo</groupId>
+                    <artifactId>maven-athena-plugin</artifactId>
+                    <version>${athena.components.version}</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
     </build>

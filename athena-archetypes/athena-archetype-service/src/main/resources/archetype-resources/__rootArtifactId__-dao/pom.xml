@@ -23,4 +23,20 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.github.sisobobo</groupId>
+                <artifactId>athena-plugin-mybatis-generator</artifactId>
+                <version>${athena.components.version}</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/test</url>
+                    <username>root</username>
+                    <password>root</password>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

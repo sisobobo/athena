@@ -6,8 +6,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-import java.util.Objects;
-
 
 @Mojo(name = "generate")
 public class MybatisGeneratorPlugin extends AbstractMojo {

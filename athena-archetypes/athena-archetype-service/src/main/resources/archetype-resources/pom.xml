@@ -17,7 +17,7 @@
         <maven.deploy.skip>true</maven.deploy.skip>
 
         <athena.components.version>1.0.0-SNAPSHOT</athena.components.version>
-        <spring-boot.version>2.7.2</spring-boot.version>
+        <spring-boot.version>2.7.4</spring-boot.version>
         <mybatis-starter.version>2.2.2</mybatis-starter.version>
     </properties>
 

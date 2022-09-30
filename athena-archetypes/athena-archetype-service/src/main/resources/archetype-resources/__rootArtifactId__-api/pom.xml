@@ -13,7 +13,14 @@
     <name>${artifactId}</name>
 
     <dependencies>
-
+        <dependency>
+            <groupId>io.github.sisobobo</groupId>
+            <artifactId>athena-component-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

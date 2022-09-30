@@ -1,4 +1,4 @@
-package io.github.sisobobo.plugin.utils;
+package io.github.sisobobo.athena.plugin.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

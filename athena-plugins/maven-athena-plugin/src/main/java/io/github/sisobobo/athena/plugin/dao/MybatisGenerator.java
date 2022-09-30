@@ -1,4 +1,4 @@
-package io.github.sisobobo.plugin.dao;
+package io.github.sisobobo.athena.plugin.dao;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Pair;
@@ -6,8 +6,8 @@ import cn.hutool.db.Db;
 import cn.hutool.db.DbUtil;
 import cn.hutool.db.ds.simple.SimpleDataSource;
 import com.google.common.base.CaseFormat;
-import io.github.sisobobo.plugin.utils.Jdbc;
-import io.github.sisobobo.plugin.utils.Velocity;
+import io.github.sisobobo.athena.plugin.utils.Jdbc;
+import io.github.sisobobo.athena.plugin.utils.Velocity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.project.MavenProject;
 import org.apache.velocity.VelocityContext;

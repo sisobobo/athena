@@ -1,4 +1,4 @@
-package io.github.sisobobo.plugin.dao;
+package io.github.sisobobo.athena.plugin.dao;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

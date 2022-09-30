@@ -1,4 +1,4 @@
-package io.github.sisobobo.exception;
+package io.github.sisobobo.athena.exception;
 
 public abstract class BaseException extends RuntimeException {
 

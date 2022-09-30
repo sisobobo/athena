@@ -1,4 +1,4 @@
-package io.github.sisobobo.exception;
+package io.github.sisobobo.athena.exception;
 
 /**
  * 已知的系统异常，需要记录Error日志，可以Retry

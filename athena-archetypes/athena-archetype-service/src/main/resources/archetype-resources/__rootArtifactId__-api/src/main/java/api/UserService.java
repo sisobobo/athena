@@ -3,11 +3,13 @@
 #set( $symbol_escape = '\' )
 package ${package}.api;
 
-import ${package}.api.model.UserModel;
+import io.github.sisobobo.athena.dto.SingleResponse;
+import ${package}.api.dto.UserDTO;
+
 
 public interface UserService {
 
-    String getUserName(Long id);
+    SingleResponse<String> getUserName(Long id);
 
-    UserModel addUser(UserModel user);
+    SingleResponse<UserDTO> addUser(UserDTO user);
 }

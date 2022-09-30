@@ -1,4 +1,4 @@
-package io.github.sisobobo.exception;
+package io.github.sisobobo.athena.exception;
 
 import java.util.Collection;
 import java.util.Map;

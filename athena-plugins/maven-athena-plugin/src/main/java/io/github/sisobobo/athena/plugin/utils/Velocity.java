@@ -1,4 +1,4 @@
-package io.github.sisobobo.plugin.utils;
+package io.github.sisobobo.athena.plugin.utils;
 
 import cn.hutool.core.lang.Assert;
 import org.apache.velocity.Template;

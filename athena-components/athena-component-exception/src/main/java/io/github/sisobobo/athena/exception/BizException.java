@@ -1,4 +1,4 @@
-package io.github.sisobobo.exception;
+package io.github.sisobobo.athena.exception;
 
 /**
  * 业务异常，有明确的业务语义，不需要记录Error日志，不需要Retry

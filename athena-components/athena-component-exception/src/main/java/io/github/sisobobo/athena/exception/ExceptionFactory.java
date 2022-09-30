@@ -1,4 +1,4 @@
-package io.github.sisobobo.exception;
+package io.github.sisobobo.athena.exception;
 
 /**
  * 异常工厂实现

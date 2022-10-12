@@ -3,6 +3,7 @@ package io.github.sisobobo.athena.catchlog;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import io.github.sisobobo.athena.exception.BizException;
+import io.github.sisobobo.athena.exception.DaoException;
 import io.github.sisobobo.athena.exception.SysException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -33,9 +34,6 @@ public class CatchLogAspect {
     @Around(value = "pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) {
         long startTime = System.currentTimeMillis();
-
-        logRequest(joinPoint);
-
         Object response = null;
         try {
             response = joinPoint.proceed();
@@ -59,6 +57,14 @@ public class CatchLogAspect {
                 log.error(e.getMessage(), e);
             }
             return responseHandler.handle(returnType, ((BizException) e).getErrCode(), e.getMessage());
+        }
+        //记录错误的请求信息
+        logRequest(joinPoint);
+
+        if (e instanceof DaoException) {
+            log.error("数据库异常 :");
+            log.error(e.getMessage(), e);
+            return responseHandler.handle(returnType, ((DaoException) e).getErrCode(), e.getMessage());
         }
 
         if (e instanceof SysException) {
@@ -86,18 +92,14 @@ public class CatchLogAspect {
 
     private void logRequest(ProceedingJoinPoint joinPoint) {
         try {
-            if (!log.isDebugEnabled()) {
-                return;
-            }
-            log.debug("执行方法: " + joinPoint.getSignature().toShortString());
+            log.error("执行方法: " + joinPoint.getSignature().toShortString());
             Object[] args = joinPoint.getArgs();
             for (Object arg : args) {
-                log.debug("参数 : " + JSON.toJSONString(arg, SerializerFeature.IgnoreErrorGetter));
+                log.error("参数 : " + JSON.toJSONString(arg, SerializerFeature.IgnoreErrorGetter));
             }
         } catch (Exception e) {
             //swallow it
             log.error("logReqeust error : " + e);
         }
     }
-
 }

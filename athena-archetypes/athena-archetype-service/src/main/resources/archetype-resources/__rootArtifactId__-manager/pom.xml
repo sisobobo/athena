@@ -17,7 +17,6 @@
             <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-dao</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>

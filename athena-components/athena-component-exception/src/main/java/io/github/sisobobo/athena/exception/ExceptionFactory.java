@@ -5,12 +5,20 @@ package io.github.sisobobo.athena.exception;
  */
 public class ExceptionFactory {
 
+    public static BizException bizException(Error error) {
+        return new BizException(error.errorCode(), error.errorMsg());
+    }
+
     public static BizException bizException(String errorMessage) {
         return new BizException(errorMessage);
     }
 
     public static BizException bizException(String errorCode, String errorMessage) {
         return new BizException(errorCode, errorMessage);
+    }
+
+    public static SysException sysException(Error error) {
+        return new SysException(error.errorCode(), error.errorMsg());
     }
 
     public static SysException sysException(String errorMessage) {

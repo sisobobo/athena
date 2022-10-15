@@ -11,4 +11,12 @@
 
     <artifactId>athena-component-dto</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
 </project>

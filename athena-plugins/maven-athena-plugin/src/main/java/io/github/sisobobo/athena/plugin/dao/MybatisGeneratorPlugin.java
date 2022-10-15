@@ -1,5 +1,6 @@
 package io.github.sisobobo.athena.plugin.dao;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -8,6 +9,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 
 @Mojo(name = "generate-mybatis")
@@ -33,6 +36,9 @@ public class MybatisGeneratorPlugin extends AbstractMojo {
     @Parameter(property = "prefix", readonly = true)
     private String prefix;
 
+    @Parameter(property = "table", readonly = true)
+    private String table ;
+
     @Parameter(property = "overwrite", defaultValue = "true", readonly = true)
     private Boolean overwrite;
 
@@ -46,8 +52,9 @@ public class MybatisGeneratorPlugin extends AbstractMojo {
         log.info("Parameter: username , value:{}" , username);
         log.info("Parameter: password , value:{}" , password);
         log.info("Parameter: prefix , value:{}" , prefix);
+        log.info("Parameter: table , value:{}" , table);
         log.info("Parameter: overwrite , value:{}" , overwrite);
         log.info("Parameter: useLombok , value:{}" , useLombok);
-        MybatisGenerator.start(url, username, password, prefix, overwrite, driver, project, useLombok);
+        MybatisGenerator.start(url, username, password, prefix, overwrite, driver, project, useLombok , table);
     }
 }

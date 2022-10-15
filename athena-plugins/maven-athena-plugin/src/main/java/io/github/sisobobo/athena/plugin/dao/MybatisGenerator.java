@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,9 +34,9 @@ public class MybatisGenerator {
         return dataSource;
     }
 
-    public static void start(String url, String user, String pass, String tablePrefix, Boolean overwrite, String driver, MavenProject project , Boolean useLombok) {
+    public static void start(String url, String user, String pass, String tablePrefix, Boolean overwrite, String driver, MavenProject project, Boolean useLombok, String tables) {
         SimpleDataSource dataSource = simpleDataSource(url, user, pass, driver);
-        VelocityContext context = generateMybatis(tablePrefix, dataSource, project , useLombok);
+        VelocityContext context = generateMybatis(tablePrefix, dataSource, project, useLombok, tables);
         File file = null;
         try {
             //生成generatorConfig.xml
@@ -63,7 +64,7 @@ public class MybatisGenerator {
     }
 
 
-    public static VelocityContext generateMybatis(String tablePrefix, SimpleDataSource dataSource, MavenProject project , Boolean useLombok) {
+    public static VelocityContext generateMybatis(String tablePrefix, SimpleDataSource dataSource, MavenProject project, Boolean useLombok, String inTables) {
         VelocityContext velocityContext = new VelocityContext();
         velocityContext.put("generator_javaModelGenerator_targetPackage", project.getGroupId() + ".dao.dataobject");
         velocityContext.put("targetProject_dao", project.getBasedir());
@@ -73,13 +74,35 @@ public class MybatisGenerator {
         velocityContext.put("jdbc_url", dataSource.getUrl());
         velocityContext.put("jdbc_username", dataSource.getUser());
         velocityContext.put("jdbc_password", dataSource.getPass());
-        velocityContext.put("useLombok" , useLombok);
-        List<Pair<String, String>> tables = findTables(dataSource, tablePrefix);
-        velocityContext.put("tables", tables);
+        velocityContext.put("useLombok", useLombok);
+        List<String> tables;
+        if (StringUtils.isNotBlank(inTables)) {
+            tables = findTables(inTables);
+        } else {
+            tables = findTables(dataSource, tablePrefix);
+        }
+        velocityContext.put("tables", handlerTables(tables));
         return velocityContext;
     }
 
-    public static List<Pair<String, String>> findTables(SimpleDataSource dataSource, String tablePrefix) {
+    private static List<Pair<String, String>> handlerTables(List<String> tables) {
+        List<Pair<String, String>> list = new ArrayList<>();
+        if (CollectionUtil.isNotEmpty(tables)) {
+            tables.forEach(s -> list.add(new Pair<>(s, dataObjectName(s))));
+        }
+        return list;
+    }
+
+    private static List<String> findTables(String inTables) {
+        List<String> list = new ArrayList<>();
+        String[] strings = inTables.split(",");
+        for (String s : strings) {
+            list.add(s.trim());
+        }
+        return list;
+    }
+
+    private static List<String> findTables(SimpleDataSource dataSource, String tablePrefix) {
         Db db = DbUtil.use(dataSource);
         Jdbc jdbc = new Jdbc(dataSource.getUrl());
         String dataBase = jdbc.getDbName();
@@ -92,16 +115,12 @@ public class MybatisGenerator {
         String sql = tableBuffer.toString();
         try {
             List<String> tables = db.query(sql, String.class);
-            List<Pair<String, String>> list = new ArrayList<>();
-            if (CollectionUtil.isNotEmpty(tables)) {
-                tables.forEach(s -> list.add(new Pair<>(s, dataObjectName(s))));
-            }
-            return list;
+            return tables;
         } catch (SQLException e) {
             throw new RuntimeException("执行sql[" + sql + "]异常");
         }
-
     }
+
 
     private static String dataObjectName(String s) {
         StringBuffer buffer = new StringBuffer(lineToHump(s));

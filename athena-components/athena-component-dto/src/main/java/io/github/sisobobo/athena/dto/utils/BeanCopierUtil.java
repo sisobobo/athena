@@ -1,6 +1,8 @@
 package io.github.sisobobo.athena.dto.utils;
 
 import org.springframework.cglib.beans.BeanCopier;
+import org.springframework.cglib.core.ReflectUtils;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BeanCopierUtil {
@@ -11,6 +13,21 @@ public class BeanCopierUtil {
 
     /**
      * BeanCopier的copy
+     *
+     * @param source
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T copy(Object source, Class<T> clazz) {
+        T target = (T) ReflectUtils.newInstance(clazz);
+        copy(source, target);
+        return target;
+    }
+
+    /**
+     * BeanCopier的copy
+     *
      * @param source 源文件的
      * @param target 目标文件
      */
@@ -28,6 +45,7 @@ public class BeanCopierUtil {
 
     /**
      * 生成key
+     *
      * @param srcClazz 源文件的class
      * @param tgtClazz 目标文件的class
      * @return string

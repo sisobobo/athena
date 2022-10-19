@@ -32,18 +32,6 @@ public class ApiGeneratePlugin extends AbstractPlugin {
         generateService(models, project);
     }
 
-    public static void main(String[] args) throws Exception {
-        List<String> warnings = new ArrayList<>();
-        String url = "jdbc:mysql://localhost:3306/athena_upms";
-        String username = "root";
-        String password = "123456";
-        Db db = new Db(url, username, password);
-        List<Model> models = JdbcUtil.getModels(db, warnings);
-        VelocityContext context = new VelocityContext();
-        context.put("model", models.get(0));
-        Velocity.makeFile("model.vm", "/Users/bo/Desktop/Test.java", context, true);
-    }
-
     private void generateDto(List<Model> models, MavenProject project) throws Exception {
         String packageName = project.getGroupId() + ".api.dto";
         List<Model> list = JdbcUtil.modifyModelName(models, "DTO");

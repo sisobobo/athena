@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>maven-athena-plugin</artifactId>
+    <artifactId>maven-athena-generate-plugin</artifactId>
     <packaging>maven-plugin</packaging>
 
     <dependencies>
@@ -51,12 +51,6 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-db</artifactId>
-            <version>5.7.22</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>21.0</version>
@@ -71,7 +65,7 @@
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>3.6.4</version>
                 <configuration>
-                    <goalPrefix>athena</goalPrefix>
+                    <goalPrefix>generate</goalPrefix>
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                 </configuration>
             </plugin>

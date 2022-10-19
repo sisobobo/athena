@@ -34,9 +34,9 @@
             <property name="replaceString" value=""/>
         </plugin>
 
-        #if(!$useLombok)
+#if(!$useLombok)
             <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
-        #end
+#end
 
         <plugin type="org.mybatis.generator.plugins.DataObjectPlugin">
             <property name="useLombok" value="${useLombok}"/>
@@ -75,7 +75,7 @@
         </javaClientGenerator>
 
         <!--要生成的表结构-->
-        #foreach($table in $tables)
+#foreach($table in $tables)
             <table tableName="$table.key"
                    domainObjectName="$table.value"
                    enableCountByExample="false"
@@ -84,7 +84,7 @@
                    enableUpdateByExample="false"
             >
             </table>
-        #end
+#end
 
     </context>
 

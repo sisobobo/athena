@@ -22,19 +22,4 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>io.github.sisobobo</groupId>
-                <artifactId>maven-athena-plugin</artifactId>
-                <configuration>
-                    <url>jdbc:mysql://localhost:3306/test</url>
-                    <username>root</username>
-                    <password>root</password>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

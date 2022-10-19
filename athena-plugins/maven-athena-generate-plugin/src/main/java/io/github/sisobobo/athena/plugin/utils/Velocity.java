@@ -1,6 +1,6 @@
 package io.github.sisobobo.athena.plugin.utils;
 
-import cn.hutool.core.lang.Assert;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -26,11 +26,22 @@ public class Velocity {
         VELOCITY_ENGINE.init();
     }
 
-    public static void makeFile(String name, File outFile, VelocityContext velocityContext) throws IOException {
+    public static File makeFile(String name, String outFile, VelocityContext velocityContext, boolean overwrite) throws IOException {
         FileWriter fileWriter = null;
+        File file = new File(outFile);
         try {
+            if (file.exists() && !overwrite) {
+                return file;
+            }
+            File parentFile = file.getParentFile();
+            if (parentFile.exists()) {
+                file.createNewFile();
+            } else {
+                parentFile.mkdirs();
+                file.createNewFile();
+            }
             Template template = findTemplate(name);
-            fileWriter = new FileWriter(outFile);
+            fileWriter = new FileWriter(file);
             template.merge(velocityContext, fileWriter);
         } catch (Exception e) {
             throw new IOException(e);
@@ -39,18 +50,19 @@ public class Velocity {
                 fileWriter.close();
             }
         }
-
+        return file;
     }
 
     private static Template findTemplate(String name) {
-        Assert.notBlank(name);
-        String path = VM_PATH + "/" + name;
-        if (!name.endsWith(".vm")) {
-            path += ".vm";
+        Template template = null;
+        if (StringUtils.isNotBlank(name)) {
+            String path = VM_PATH + "/" + name;
+            if (!name.endsWith(".vm")) {
+                path += ".vm";
+            }
+            // 获取模板文件
+            template = VELOCITY_ENGINE.getTemplate(path, "UTF-8");
         }
-        // 获取模板文件
-        Template template = VELOCITY_ENGINE.getTemplate(path , "UTF-8");
-        Assert.notNull(template, "获取模板文件[" + name + "]异常");
         return template;
     }
 }

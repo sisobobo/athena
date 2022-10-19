@@ -12,7 +12,7 @@
     <artifactId>athena-plugins</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>maven-athena-plugin</module>
+        <module>maven-athena-generate-plugin</module>
     </modules>
 
     <dependencies>

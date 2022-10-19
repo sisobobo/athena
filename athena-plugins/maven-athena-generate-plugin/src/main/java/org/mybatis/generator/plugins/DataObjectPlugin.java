@@ -1,11 +1,11 @@
 package org.mybatis.generator.plugins;
 
+import io.github.sisobobo.athena.plugin.utils.JdbcUtil;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -32,8 +32,8 @@ public class DataObjectPlugin extends PluginAdapter {
             topLevelClass.addAnnotation("@Data");
         }
         topLevelClass.addJavaDocLine("/**");
-        topLevelClass.addJavaDocLine("* @author Athena Mybatis Generator");
-        topLevelClass.addJavaDocLine("* @date " + this.date2Str(new Date()));
+        topLevelClass.addJavaDocLine("* @author Athena  Generator");
+        topLevelClass.addJavaDocLine("* @date " + JdbcUtil.date2Str(new Date()));
         topLevelClass.addJavaDocLine("*/");
         return true;
     }
@@ -48,9 +48,6 @@ public class DataObjectPlugin extends PluginAdapter {
         return !this.useLombok;
     }
 
-    private String date2Str(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH:mm");
-        return sdf.format(date);
-    }
+
 
 }

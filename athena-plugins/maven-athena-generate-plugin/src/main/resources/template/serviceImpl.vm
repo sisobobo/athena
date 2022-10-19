@@ -1,0 +1,13 @@
+package ${package};
+
+import io.github.sisobobo.athena.dto.SingleResponse;
+import ${groupId}.api.dto.${modelName}DTO;
+import ${groupId}.api.${modelName}Service;
+
+public class ${modelName}ServiceImpl implements ${modelName}Service {
+
+    public SingleResponse<${modelName}DTO> create(${modelName}DTO cmd){
+
+    }
+
+}

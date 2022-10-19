@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>athena-archetype-service</module>
+        <module>athena-archetype-web</module>
     </modules>
 
     <build>

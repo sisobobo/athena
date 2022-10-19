@@ -1,10 +1,17 @@
 package ${package};
 
+import io.github.sisobobo.athena.dto.Response;
 import io.github.sisobobo.athena.dto.SingleResponse;
 import ${groupId}.api.dto.${modelName}DTO;
 
 public interface ${modelName}Service {
 
-    SingleResponse<${modelName}DTO> create(${modelName}DTO cmd);
+    SingleResponse<${modelName}DTO> create(${modelName}DTO ${lowModelName}DTO);
+
+    Response delete(Long id);
+
+    Response modify(${modelName}DTO ${lowModelName}DTO);
+
+    SingleResponse<${modelName}DTO> findById(Long id);
 
 }

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor name="athena-archetype-service">
+
+    <requiredProperties>
+        <requiredProperty key="gitignore">
+            <defaultValue>.gitignore</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+
+    <fileSets>
+        <fileSet>
+            <directory></directory>
+            <includes>
+                <include>__gitignore__</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <modules>
+
+        <module id="${rootArtifactId}-web" dir="__rootArtifactId__-web" name="${rootArtifactId}-web">
+            <fileSets>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="${rootArtifactId}-api" dir="__rootArtifactId__-api" name="${rootArtifactId}-api">
+            <fileSets>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="${rootArtifactId}-service" dir="__rootArtifactId__-service" name="${rootArtifactId}-service">
+            <fileSets>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="${rootArtifactId}-manager" dir="__rootArtifactId__-manager" name="${rootArtifactId}-manager">
+            <fileSets>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="${rootArtifactId}-dao" dir="__rootArtifactId__-dao" name="${rootArtifactId}-dao">
+            <fileSets>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>**/*.xml</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                    <includes>
+                        <include>**/*.properties</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="start" dir="start" name="start">
+            <fileSets>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                    <includes>
+                        <include>**/*.xml</include>
+                        <include>**/*.properties</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                    <includes>
+                        <include>**/*.xml</include>
+                        <include>**/*.properties</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+    </modules>
+</archetype-descriptor>

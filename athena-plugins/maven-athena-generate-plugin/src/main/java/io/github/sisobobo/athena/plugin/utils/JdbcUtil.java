@@ -55,7 +55,7 @@ public class JdbcUtil {
     private static Model getModel(IntrospectedTable introspectedTable) {
         Model model = new Model();
         String tableName = introspectedTable.getFullyQualifiedTable().getIntrospectedTableName();
-        model.setModelName(lineToHump(tableName));
+        model.setModelName(GenerateUtil.lineToHump(tableName));
         List<IntrospectedColumn> allColumns = introspectedTable.getAllColumns();
         List<Model.Field> fields = new ArrayList<>(allColumns.size());
         List<String> packages = new ArrayList<>();
@@ -124,12 +124,6 @@ public class JdbcUtil {
         return dbName;
     }
 
-    /**
-     * 下划线转驼峰
-     */
-    public static String lineToHump(String str) {
-        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, str);
-    }
 
     private static List<String> getTables(String tables) {
         String[] split = tables.split(",");

@@ -12,7 +12,7 @@ import $pkg;
  * @date ${model.createTime}
  */
 @Data
-public class ${model.modelName} implements Serializable {
+public class ${fileName} implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

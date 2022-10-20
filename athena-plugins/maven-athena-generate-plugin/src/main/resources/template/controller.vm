@@ -1,0 +1,19 @@
+package ${package};
+
+import io.github.sisobobo.athena.dto.SingleResponse;
+import javax.validation.constraints.NotNull;
+
+import ${groupId}.api.${modelName}Service;
+import ${groupId}.web.vo.${modelName}VO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+public class ${fileName} {
+
+    @Autowired
+    private ${modelName}Service ${lowModelName}Service;
+
+
+}

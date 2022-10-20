@@ -1,0 +1,30 @@
+package ${package};
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import io.github.sisobobo.athena.dto.DTO;
+#foreach($pkg in $model.packages)
+import $pkg;
+#end
+
+/**
+* @author Athena Generator
+* @date ${model.createTime}
+*/
+@Getter
+@Setter
+@ToString
+public class ${fileName} extends DTO {
+
+#foreach($data in $model.fields)
+    #if($data.remarks != "")
+    /**
+    * $data.remarks
+    */
+    #end
+private $data.javaType $data.name;
+#end
+
+}

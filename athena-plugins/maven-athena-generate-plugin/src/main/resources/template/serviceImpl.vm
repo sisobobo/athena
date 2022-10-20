@@ -12,7 +12,7 @@ import ${groupId}.dao.dataobject.${modelName}DO;
 import ${groupId}.dao.mapper.${modelName}Mapper;
 
 @Service
-public class ${modelName}ServiceImpl implements ${modelName}Service {
+public class ${fileName} implements ${modelName}Service {
 
     @Autowired
     private ${modelName}Mapper ${lowModelName}Mapper;

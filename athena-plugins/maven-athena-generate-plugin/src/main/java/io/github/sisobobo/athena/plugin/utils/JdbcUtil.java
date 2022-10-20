@@ -13,8 +13,6 @@ import org.mybatis.generator.config.ModelType;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.internal.db.DatabaseIntrospector;
 import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
-import org.mybatis.generator.internal.util.JavaBeansUtil;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -25,7 +23,6 @@ import java.util.stream.Collectors;
 
 public class JdbcUtil {
 
-
     public static List<Model> getModels(Db db, List<String> warnings) throws SQLException {
         List<IntrospectedTable> introspectedTables = getIntrospectedTables(db, warnings);
         List<Model> models = new ArrayList<>(introspectedTables.size());
@@ -33,23 +30,6 @@ public class JdbcUtil {
             models.add(getModel(introspectedTable));
         }
         return models;
-    }
-
-    /**
-     * 修改Model名称
-     * @param models
-     * @param tail
-     * @return
-     * @throws Exception
-     */
-    public static List<Model> modifyModelName(List<Model> models, String tail) throws Exception {
-        List<Model> list = new ArrayList<>();
-        for (Model model : models) {
-            Model newModel = (Model) model.clone();
-            newModel.setModelName(model.getModelName() + tail);
-            list.add(newModel);
-        }
-        return list;
     }
 
     private static Model getModel(IntrospectedTable introspectedTable) {

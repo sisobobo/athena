@@ -1,4 +1,4 @@
-package io.github.sisobobo.athena.plugin.factory.dao;
+package io.github.sisobobo.athena.plugin.utils;
 
 import io.github.sisobobo.athena.plugin.utils.GenerateUtil;
 import io.github.sisobobo.athena.plugin.utils.JdbcUtil;
@@ -13,8 +13,6 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -27,14 +25,14 @@ public class MybatisGenerator {
     public static void start(Db db, Condition condition, MavenProject project, List<String> warnings) {
         File file = null;
         try {
-            VelocityContext context = generateMybatis(db, condition, project, warnings);
+            VelocityContext context = generateMybatis(db, project, warnings);
             //生成generatorConfig.xml
             file = Velocity.makeFile("generatorConfig.vm", "./generatorConfig.xml", context, true);
             //运行Mybatis generator
             ConfigurationParser cp = new ConfigurationParser(warnings);
             Configuration config = cp.parseConfiguration(file);
             //true是覆盖文件
-            DefaultShellCallback callback = new DefaultShellCallback(GenerateUtil.isOverwrite(condition));
+            DefaultShellCallback callback = new DefaultShellCallback(condition.isOverwrite());
             MyBatisGenerator generator = new MyBatisGenerator(config, callback, warnings);
             generator.generate(null);
         } catch (Exception e) {
@@ -46,7 +44,7 @@ public class MybatisGenerator {
         }
     }
 
-    private static VelocityContext generateMybatis(Db db, Condition condition, MavenProject project, List<String> warnings) throws SQLException {
+    private static VelocityContext generateMybatis(Db db, MavenProject project, List<String> warnings) throws SQLException {
         VelocityContext velocityContext = new VelocityContext();
         velocityContext.put("package", project.getGroupId() + ".api");
         velocityContext.put("targetProject_dao", project.getBasedir());

@@ -1,7 +1,6 @@
 package io.github.sisobobo.athena.plugin.utils;
 
 import com.google.common.base.CaseFormat;
-import io.github.sisobobo.athena.plugin.model.Condition;
 import io.github.sisobobo.athena.plugin.model.Model;
 import org.apache.velocity.VelocityContext;
 
@@ -9,73 +8,39 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 public class GenerateUtil {
 
-    private static final String MODEL_TEMPLATE = "model.vm";
+    private static String JAVA_PACKAGE = "src.main.java.";
 
-    private static final String SERVICE_TEMPLATE = "service.vm";
-
-    private static final String SERVICE_IMPL_TEMPLATE = "serviceImpl.vm";
-
-    public static List<File> generateJavaModelFiles(List<Model> models, String baseDir, String packageName, boolean overwrite) throws IOException {
+    public static List<File> generateJavaFiles(String template, String suffix, List<Model> models, VelocityContext context, String baseDir, String groupId, String packageName, boolean overwrite) throws IOException {
         List<File> files = new ArrayList<>(models.size());
-        VelocityContext context = new VelocityContext();
-        for (Model model : models) {
-            context.put("model", model);
-            File file = generateJavaFile(MODEL_TEMPLATE, model, baseDir, packageName, context, overwrite);
-            files.add(file);
-        }
-        return files;
-    }
-
-    public static List<File> generateServiceFiles(List<Model> models, String groupId, String baseDir, String packageName, boolean overwrite) throws IOException {
-        List<File> files = new ArrayList<>(models.size());
-        VelocityContext context = new VelocityContext();
-        for (Model model : models) {
-            context.put("groupId", groupId);
-            context.put("modelName", model.getModelName());
-            context.put("lowModelName", lowerFirstCapse(model.getModelName()));
-            model.setModelName(model.getModelName() + "Service");
-            File file = generateJavaFile(SERVICE_TEMPLATE, model, baseDir, packageName, context, overwrite);
-            files.add(file);
-        }
-        return files;
-    }
-
-    public static List<File> generateServiceImplFiles(List<Model> models, String groupId, String baseDir, String packageName, boolean overwrite) throws IOException {
-        List<File> files = new ArrayList<>(models.size());
-        VelocityContext context = new VelocityContext();
-        for (Model model : models) {
-            context.put("groupId", groupId);
-            context.put("modelName", model.getModelName());
-            context.put("lowModelName", lowerFirstCapse(model.getModelName()));
-            model.setModelName(model.getModelName() + "ServiceImpl");
-            File file = generateJavaFile(SERVICE_IMPL_TEMPLATE, model, baseDir, packageName, context, overwrite);
-            files.add(file);
-        }
-        return files;
-    }
-
-    private static File generateJavaFile(String template, Model model, String baseDir, String packageName, VelocityContext context, boolean overwrite) throws IOException {
+        suffix = Optional.ofNullable(suffix).orElse("");
         context.put("package", packageName);
-        String path = FileUtil.joinPathAndPackage(baseDir, FileUtil.JAVA_PACKAGE + packageName);
-        String fileName = path + File.separator + model.getModelName() + ".java";
-        File file = Velocity.makeFile(template, fileName, context, overwrite);
-        return file;
+        context.put("groupId", groupId);
+        for (Model model : models) {
+            putBaseContext(context, model, suffix);
+            File file = generateJavaFile(template, baseDir, context, overwrite);
+            files.add(file);
+        }
+        return files;
     }
 
-    /**
-     * 是否覆盖文件
-     *
-     * @param condition
-     * @return
-     */
-    public static boolean isOverwrite(Condition condition) {
-        System.out.println("-----condition------" + condition);
-        System.out.println("-- express---" + (Objects.isNull(condition) || Objects.isNull(condition.getOverwrite())));
-        return (Objects.isNull(condition) || Objects.isNull(condition.getOverwrite())) ? false : condition.getOverwrite();
+    private static void putBaseContext(VelocityContext context, Model model, String suffix) {
+        context.put("modelName", model.getModelName());
+        context.put("fileName", model.getModelName() + suffix);
+        context.put("lowModelName", lowerFirstCapse(model.getModelName()));
+        context.put("model", model);
+    }
+
+    private static File generateJavaFile(String template, String baseDir, VelocityContext context, boolean overwrite) throws IOException {
+        String fileName = (String) context.get("fileName");
+        String packageName = (String) context.get("package");
+        String path = joinPathAndPackage(baseDir, JAVA_PACKAGE + packageName);
+        String filePath = path + File.separator + fileName + ".java";
+        File file = Velocity.makeFile(template, filePath, context, overwrite);
+        return file;
     }
 
     /**
@@ -88,8 +53,23 @@ public class GenerateUtil {
     /**
      * 驼峰第一个字母小写
      */
-    public static String lowerFirstCapse(String str) {
+    private static String lowerFirstCapse(String str) {
         return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, str);
+    }
+
+    /**
+     * 拼接路径和包名
+     *
+     * @param path
+     * @param packageName
+     * @return
+     */
+    private static String joinPathAndPackage(String path, String packageName) {
+        if (!path.endsWith(File.separator)) {
+            path += File.separator;
+        }
+        path += packageName.replace(".", File.separator);
+        return path;
     }
 
 

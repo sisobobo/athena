@@ -4,7 +4,7 @@ import io.github.sisobobo.athena.dto.Response;
 import io.github.sisobobo.athena.dto.SingleResponse;
 import ${groupId}.api.dto.${modelName}DTO;
 
-public interface ${modelName}Service {
+public interface ${fileName} {
 
     SingleResponse<${modelName}DTO> create(${modelName}DTO ${lowModelName}DTO);
 

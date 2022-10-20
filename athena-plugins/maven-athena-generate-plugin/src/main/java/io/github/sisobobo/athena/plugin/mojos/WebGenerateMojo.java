@@ -3,9 +3,7 @@ package io.github.sisobobo.athena.plugin.mojos;
 import io.github.sisobobo.athena.plugin.enums.ModuleEnum;
 import io.github.sisobobo.athena.plugin.AbstractBaseMojo;
 import org.apache.maven.plugins.annotations.Mojo;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Mojo(name = "web")

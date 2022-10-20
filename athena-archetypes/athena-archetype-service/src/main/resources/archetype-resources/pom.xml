@@ -128,7 +128,7 @@
 
                 <plugin>
                     <groupId>io.github.sisobobo</groupId>
-                    <artifactId>maven-athena-plugin</artifactId>
+                    <artifactId>maven-athena-generate-plugin</artifactId>
                     <version>${athena.components.version}</version>
                 </plugin>
             </plugins>

@@ -20,9 +20,9 @@ public class ${fileName} extends DTO {
 
 #foreach($data in $model.fields)
 #if($data.remarks != "")
-   /**
-    * $data.remarks
-    */
+    /**
+     * $data.remarks
+     */
 #end
     private $data.javaType $data.name;
 #end

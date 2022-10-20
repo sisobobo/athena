@@ -24,7 +24,7 @@ public class ${fileName} extends DTO {
     * $data.remarks
     */
 #end
-private $data.javaType $data.name;
+    private $data.javaType $data.name;
 #end
 
 }

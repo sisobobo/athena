@@ -3,7 +3,6 @@ package ${package};
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import io.github.sisobobo.athena.dto.DTO;
 #foreach($pkg in $model.packages)
 import $pkg;

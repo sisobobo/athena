@@ -1,56 +1,90 @@
 package io.github.sisobobo.athena.dto.utils;
 
 import org.springframework.cglib.beans.BeanCopier;
-import org.springframework.cglib.core.ReflectUtils;
+import org.springframework.cglib.beans.BeanMap;
+import org.springframework.objenesis.ObjenesisStd;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 对象拷贝工具
+ */
 public class BeanCopierUtil {
-    /**
-     * BeanCopier的缓存
-     */
-    static final ConcurrentHashMap<String, BeanCopier> BEAN_COPIER_CACHE = new ConcurrentHashMap<>();
+    private static ThreadLocal<ObjenesisStd> objenesisStdThreadLocal = ThreadLocal.withInitial(ObjenesisStd::new);
+    private static ConcurrentHashMap<Class<?>, ConcurrentHashMap<Class<?>, BeanCopier>> cache = new ConcurrentHashMap<>();
 
     /**
-     * BeanCopier的copy
-     *
+     * copy对象
      * @param source
-     * @param clazz
+     * @param target
      * @param <T>
      * @return
      */
-    public static <T> T copy(Object source, Class<T> clazz) {
-        T target = (T) ReflectUtils.newInstance(clazz);
-        copy(source, target);
+    public static <T> T copy(Object source, Class<T> target) {
+        return copy(source, objenesisStdThreadLocal.get().newInstance(target));
+    }
+
+    private static <T> T copy(Object source, T target) {
+        BeanCopier beanCopier = getCacheBeanCopier(source.getClass(), target.getClass());
+        beanCopier.copy(source, target, null);
         return target;
     }
 
     /**
-     * BeanCopier的copy
-     *
-     * @param source 源文件的
-     * @param target 目标文件
+     * 拷贝数组
+     * @param sources
+     * @param target
+     * @param <T>
+     * @return
      */
-    public static void copy(Object source, Object target) {
-        String key = genKey(source.getClass(), target.getClass());
-        BeanCopier beanCopier;
-        if (BEAN_COPIER_CACHE.containsKey(key)) {
-            beanCopier = BEAN_COPIER_CACHE.get(key);
-        } else {
-            beanCopier = BeanCopier.create(source.getClass(), target.getClass(), false);
-            BEAN_COPIER_CACHE.put(key, beanCopier);
+    public static <T> List<T> copyList(List<?> sources, Class<T> target) {
+        if (sources.isEmpty()) {
+            return Collections.EMPTY_LIST;
         }
-        beanCopier.copy(source, target, null);
+        ArrayList<T> list = new ArrayList<>(sources.size());
+        ObjenesisStd objenesisStd = objenesisStdThreadLocal.get();
+        for (Object source : sources) {
+            if (source == null) {
+                return new ArrayList<>();
+            }
+            T newInstance = objenesisStd.newInstance(target);
+            BeanCopier beanCopier = getCacheBeanCopier(source.getClass(), target);
+            beanCopier.copy(source, newInstance, null);
+            list.add(newInstance);
+        }
+        return list;
     }
 
     /**
-     * 生成key
-     *
-     * @param srcClazz 源文件的class
-     * @param tgtClazz 目标文件的class
-     * @return string
+     * Map转成Bean
+     * @param source
+     * @param target
+     * @param <T>
+     * @return
      */
-    private static String genKey(Class<?> srcClazz, Class<?> tgtClazz) {
-        return srcClazz.getName() + tgtClazz.getName();
+    public static <T> T mapToBean(Map<?, ?> source, Class<T> target) {
+        T bean = objenesisStdThreadLocal.get().newInstance(target);
+        BeanMap beanMap = BeanMap.create(bean);
+        beanMap.putAll(source);
+        return bean;
+    }
+
+    /**
+     * Bean转成Map
+     * @param source
+     * @param <T>
+     * @return
+     */
+    public static <T> Map<?, ?> beanToMap(T source) {
+        return BeanMap.create(source);
+    }
+
+    private static <S, T> BeanCopier getCacheBeanCopier(Class<S> source, Class<T> target) {
+        ConcurrentHashMap<Class<?>, BeanCopier> copierConcurrentHashMap = cache.computeIfAbsent(source, aClass -> new ConcurrentHashMap<>(16));
+        return copierConcurrentHashMap.computeIfAbsent(target, aClass -> BeanCopier.create(source, target, false));
     }
 }

@@ -1,0 +1,33 @@
+package ${package};
+
+import lombok.Data;
+#if($hasSuperClass)
+import lombok.EqualsAndHashCode;
+import $superFullName;
+#else
+import java.io.Serializable;
+#end
+#foreach($pkg in $model.packages)
+import $pkg;
+#end
+
+/**
+* @author Athena Generator
+* @date ${model.createTime}
+*/
+#if($hasSuperClass)
+@EqualsAndHashCode(callSuper = true)
+#end
+@Data
+public class ${fileName}#if($hasSuperClass) extends ${superSimpleName}#else implements Serializable #end{
+
+#foreach($data in $model.fields)
+#if($data.remarks != "")
+    /**
+     * $data.remarks
+     */
+#end
+    private $data.javaType $data.name;
+#end
+
+}

@@ -1,7 +1,7 @@
 package io.github.sisobobo.athena.plugin.utils;
 
 import com.google.common.base.CaseFormat;
-import io.github.sisobobo.athena.plugin.model.Model;
+import io.github.sisobobo.athena.plugin.model.Table;
 import org.apache.velocity.VelocityContext;
 
 import java.io.File;
@@ -14,12 +14,12 @@ public class GenerateUtil {
 
     private static String JAVA_PACKAGE = "src.main.java.";
 
-    public static List<File> generateJavaFiles(String template, String suffix, List<Model> models, VelocityContext context, String baseDir, String groupId, String packageName, boolean overwrite) throws IOException {
+    public static List<File> generateJavaFiles(String template, String suffix, List<Table> models, VelocityContext context, String baseDir, String groupId, String packageName, boolean overwrite) throws IOException {
         List<File> files = new ArrayList<>(models.size());
         suffix = Optional.ofNullable(suffix).orElse("");
         context.put("package", packageName);
         context.put("groupId", groupId);
-        for (Model model : models) {
+        for (Table model : models) {
             putBaseContext(context, model, suffix);
             File file = generateJavaFile(template, baseDir, context, overwrite);
             files.add(file);
@@ -27,11 +27,13 @@ public class GenerateUtil {
         return files;
     }
 
-    private static void putBaseContext(VelocityContext context, Model model, String suffix) {
-        context.put("modelName", model.getModelName());
-        context.put("fileName", model.getModelName() + suffix);
-        context.put("lowModelName", lowerFirstCapse(model.getModelName()));
-        context.put("model", model);
+    private static void putBaseContext(VelocityContext context, Table table, String suffix) {
+        String modelName = lineToHump(table.getTableName());
+        context.put("modelName", modelName);
+        context.put("fileName", modelName + suffix);
+        context.put("lowModelName", lowerFirstCapse(modelName));
+        context.put("mapping", nameToMapping(table.getTableName()));
+        context.put("model", table);
     }
 
     private static File generateJavaFile(String template, String baseDir, VelocityContext context, boolean overwrite) throws IOException {
@@ -55,6 +57,16 @@ public class GenerateUtil {
      */
     private static String lowerFirstCapse(String str) {
         return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, str);
+    }
+
+    /**
+     * 转换Mapping名称
+     *
+     * @param name
+     * @return
+     */
+    private static String nameToMapping(String name) {
+        return "/" + name.replace("_", "/");
     }
 
     /**

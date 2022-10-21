@@ -17,7 +17,7 @@ public class ApiGenerateMojo extends AbstractBaseMojo {
 
     @Override
     protected List<ModuleEnum> modules() {
-        return Arrays.asList(ModuleEnum.DTO, ModuleEnum.SERVICE);
+        return Arrays.asList(ModuleEnum.DTO,  ModuleEnum.SERVICE);
     }
 
 }

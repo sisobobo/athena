@@ -1,0 +1,90 @@
+package ${package};
+
+import io.github.sisobobo.athena.dto.*;
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import io.github.sisobobo.athena.dto.utils.BeanCopierUtil;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.util.CollectionUtils;
+
+import ${groupId}.dao.dataobject.${modelName}DOExample;
+import ${groupId}.api.dto.${modelName}DTO;
+import ${groupId}.api.${modelName}Service;
+import ${groupId}.dao.dataobject.${modelName}DO;
+import ${groupId}.dao.mapper.${modelName}Mapper;
+
+
+@Service
+public class ${fileName} implements ${modelName}Service {
+
+    @Autowired
+    private ${modelName}Mapper ${lowModelName}Mapper;
+
+    @Override
+    public SingleResponse<${modelName}DTO> create(Command command) {
+        //todo 完善业务逻辑
+        ${modelName}DO ${lowModelName}DO = BeanCopierUtil.copy(command, ${modelName}DO.class);
+        ${lowModelName}DO.setCreateTime(new Date());
+        ${lowModelName}DO.setUpdateTime(new Date());
+        ${lowModelName}Mapper.insertSelective(${lowModelName}DO);
+        ${modelName}DTO ${lowModelName}DTO = BeanCopierUtil.copy(${lowModelName}DO, ${modelName}DTO.class);
+        return SingleResponse.of(${lowModelName}DTO);
+    }
+
+    @Override
+    public Response deleteById(Long id) {
+        //todo 完善业务逻辑
+        ${lowModelName}Mapper.deleteByPrimaryKey(id);
+        return Response.success();
+    }
+
+    @Override
+    public Response updateById(Command command) {
+        //todo 完善业务逻辑
+        ${modelName}DO ${lowModelName}DO = BeanCopierUtil.copy(command, ${modelName}DO.class);
+        ${lowModelName}DO.setUpdateTime(new Date());
+        ${lowModelName}Mapper.updateByPrimaryKey(${lowModelName}DO);
+        return Response.success();
+    }
+
+    @Override
+    public SingleResponse<${modelName}DTO> findById(Long id) {
+        //todo 完善业务逻辑
+        ${modelName}DO ${lowModelName}DO = Optional.ofNullable(${lowModelName}Mapper.selectByPrimaryKey(id)).orElse(new ${modelName}DO());
+        ${modelName}DTO ${lowModelName}DTO = BeanCopierUtil.copy(${lowModelName}DO, ${modelName}DTO.class);
+        return SingleResponse.of(${lowModelName}DTO);
+    }
+
+    @Override
+    public PageResponse<${modelName}DTO> pageList(PageQuery pageQuery) {
+        //todo 完善业务逻辑
+        ${modelName}DOExample example = new ${modelName}DOExample();
+        long count = ${lowModelName}Mapper.countByExample(example);
+        if (count == 0) {
+            return PageResponse.success();
+        }
+        List<${modelName}DO> doList = ${lowModelName}Mapper.selectByExampleWithRowbounds(example, new RowBounds(pageQuery.getOffset(), pageQuery.getPageSize()));
+        if (CollectionUtils.isEmpty(doList)) {
+            return PageResponse.of(pageQuery);
+        }
+        List<${modelName}DTO> dtoList = BeanCopierUtil.copyList(doList, ${modelName}DTO.class);
+        return PageResponse.of(dtoList, (int) count, pageQuery);
+    }
+
+    @Override
+    public MultiResponse<${modelName}DTO> list(Query query) {
+        //todo 完善业务逻辑
+        ${modelName}DOExample example = new ${modelName}DOExample();
+        List<${modelName}DO> doList = ${lowModelName}Mapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(doList)) {
+            return MultiResponse.of(Collections.EMPTY_LIST);
+        }
+        List<${modelName}DTO> dtoList = BeanCopierUtil.copyList(doList, ${modelName}DTO.class);
+        return MultiResponse.of(dtoList);
+    }
+
+}

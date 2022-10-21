@@ -1,16 +1,14 @@
 package io.github.sisobobo.athena.plugin.model;
 
-import io.github.sisobobo.athena.plugin.enums.OrmEnum;
-
 public class Condition {
 
     private boolean overwrite = false;
 
-    private OrmEnum orm = OrmEnum.MYBATIS;
+    private String orm = "mybatis";
 
-    private boolean createVo = false;
+    private boolean vo = false;
 
-    private boolean createController = false;
+    private boolean controller = false;
 
     public boolean isOverwrite() {
         return overwrite;
@@ -20,28 +18,28 @@ public class Condition {
         this.overwrite = overwrite;
     }
 
-    public OrmEnum getOrm() {
+    public String getOrm() {
         return orm;
     }
 
-    public void setOrm(OrmEnum orm) {
+    public void setOrm(String orm) {
         this.orm = orm;
     }
 
-    public boolean isCreateVo() {
-        return createVo;
+    public boolean isVo() {
+        return vo;
     }
 
-    public void setCreateVo(boolean createVo) {
-        this.createVo = createVo;
+    public void setVo(boolean vo) {
+        this.vo = vo;
     }
 
-    public boolean isCreateController() {
-        return createController;
+    public boolean isController() {
+        return controller;
     }
 
-    public void setCreateController(boolean createController) {
-        this.createController = createController;
+    public void setController(boolean controller) {
+        this.controller = controller;
     }
 
     @Override
@@ -49,8 +47,8 @@ public class Condition {
         return "Condition{" +
                 "overwrite=" + overwrite +
                 ", orm=" + orm +
-                ", createVo=" + createVo +
-                ", createController=" + createController +
+                ", vo=" + vo +
+                ", controller=" + controller +
                 '}';
     }
 }

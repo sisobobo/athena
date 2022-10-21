@@ -17,10 +17,10 @@ public class WebGenerateMojo extends AbstractBaseMojo {
     @Override
     protected List<ModuleEnum> modules() {
         List<ModuleEnum> list = new ArrayList<>();
-        if (this.condition.isCreateVo()) {
+        if (this.condition.isVo()) {
             list.add(ModuleEnum.VO);
         }
-        if (this.condition.isCreateController()) {
+        if (this.condition.isController()) {
             list.add(ModuleEnum.CONTROLLER);
         }
         return list;

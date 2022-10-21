@@ -1,9 +1,8 @@
 package io.github.sisobobo.athena.plugin.utils;
 
-import com.google.common.base.CaseFormat;
-import io.github.sisobobo.athena.plugin.model.Condition;
 import io.github.sisobobo.athena.plugin.model.Db;
-import io.github.sisobobo.athena.plugin.model.Model;
+import io.github.sisobobo.athena.plugin.model.Table;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -13,6 +12,7 @@ import org.mybatis.generator.config.ModelType;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.internal.db.DatabaseIntrospector;
 import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -23,24 +23,26 @@ import java.util.stream.Collectors;
 
 public class JdbcUtil {
 
-    public static List<Model> getModels(Db db, List<String> warnings) throws SQLException {
+    public static List<Table> getModels(Db db, List<String> warnings) throws SQLException {
         List<IntrospectedTable> introspectedTables = getIntrospectedTables(db, warnings);
-        List<Model> models = new ArrayList<>(introspectedTables.size());
+        List<Table> models = new ArrayList<>(introspectedTables.size());
         for (IntrospectedTable introspectedTable : introspectedTables) {
             models.add(getModel(introspectedTable));
         }
         return models;
     }
 
-    private static Model getModel(IntrospectedTable introspectedTable) {
-        Model model = new Model();
+    private static Table getModel(IntrospectedTable introspectedTable) {
+        Table model = new Table();
         String tableName = introspectedTable.getFullyQualifiedTable().getIntrospectedTableName();
-        model.setModelName(GenerateUtil.lineToHump(tableName));
-        List<IntrospectedColumn> allColumns = introspectedTable.getAllColumns();
-        List<Model.Field> fields = new ArrayList<>(allColumns.size());
+        model.setTableName(tableName);
+        List<IntrospectedColumn> columns = introspectedTable.getAllColumns();
+        List<String> primaryKeys = getPrimaryKeys(introspectedTable);
+        List<Table.Field> fields = new ArrayList<>(columns.size());
         List<String> packages = new ArrayList<>();
-        for (IntrospectedColumn column : allColumns) {
-            Model.Field field = new Model.Field(column.getFullyQualifiedJavaType().getShortName(), column.getJavaProperty(), column.getRemarks());
+        for (IntrospectedColumn column : columns) {
+            Table.Field field = new Table.Field(column.getFullyQualifiedJavaType().getShortName(), column.getJavaProperty(), column.getRemarks());
+            field.setPrimaryKey(primaryKeys.contains(field.getName()));
             fields.add(field);
             packages.addAll(column.getFullyQualifiedJavaType().getImportList());
         }
@@ -49,6 +51,14 @@ public class JdbcUtil {
         model.setPackages(packages);
         model.setCreateTime(date2Str(new Date()));
         return model;
+    }
+
+    private static List<String> getPrimaryKeys(IntrospectedTable introspectedTable) {
+        List<IntrospectedColumn> primaryKeyColumns = introspectedTable.getPrimaryKeyColumns();
+        if (CollectionUtils.isEmpty(primaryKeyColumns)) {
+            return Collections.EMPTY_LIST;
+        }
+        return primaryKeyColumns.stream().map(c -> c.getJavaProperty()).collect(Collectors.toList());
     }
 
     /**

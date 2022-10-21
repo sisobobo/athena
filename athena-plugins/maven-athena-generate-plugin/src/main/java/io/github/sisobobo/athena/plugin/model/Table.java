@@ -1,12 +1,10 @@
 package io.github.sisobobo.athena.plugin.model;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 
-public class Model implements Cloneable {
+public class Table implements Cloneable {
 
-    private String modelName;
+    private String tableName;
 
     private List<String> packages;
 
@@ -19,12 +17,12 @@ public class Model implements Cloneable {
         return super.clone();
     }
 
-    public String getModelName() {
-        return modelName;
+    public String getTableName() {
+        return tableName;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     public List<String> getPackages() {
@@ -54,7 +52,7 @@ public class Model implements Cloneable {
     @Override
     public String toString() {
         return "Model{" +
-                "modelName='" + modelName + '\'' +
+                "tableName='" + tableName + '\'' +
                 ", packages=" + packages +
                 ", fields=" + fields +
                 ", createTime='" + createTime + '\'' +
@@ -74,6 +72,8 @@ public class Model implements Cloneable {
         private String name;
 
         private String remarks;
+
+        private boolean primaryKey;
 
         public String getJavaType() {
             return javaType;
@@ -99,12 +99,21 @@ public class Model implements Cloneable {
             this.remarks = remarks;
         }
 
+        public boolean isPrimaryKey() {
+            return primaryKey;
+        }
+
+        public void setPrimaryKey(boolean primaryKey) {
+            this.primaryKey = primaryKey;
+        }
+
         @Override
         public String toString() {
             return "Field{" +
                     "javaType='" + javaType + '\'' +
                     ", name='" + name + '\'' +
                     ", remarks='" + remarks + '\'' +
+                    ", primaryKey=" + primaryKey +
                     '}';
         }
     }

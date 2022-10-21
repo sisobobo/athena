@@ -3,9 +3,10 @@ package io.github.sisobobo.athena.plugin;
 import io.github.sisobobo.athena.plugin.enums.ModuleEnum;
 import io.github.sisobobo.athena.plugin.model.Db;
 import io.github.sisobobo.athena.plugin.model.Condition;
-import io.github.sisobobo.athena.plugin.model.Model;
+import io.github.sisobobo.athena.plugin.model.Table;
 import io.github.sisobobo.athena.plugin.utils.GenerateUtil;
 import io.github.sisobobo.athena.plugin.utils.JdbcUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -61,11 +62,16 @@ public abstract class AbstractBaseMojo extends AbstractMojo {
     }
 
     public void executeGenerate() throws Exception {
-        this.setContext(this.context);
-        List<Model> models = JdbcUtil.getModels(this.db, this.warnings);
-        List<ModuleEnum> moduleEnums = Optional.ofNullable(modules()).orElse(Collections.emptyList());
+        List<Table> tables = JdbcUtil.getModels(this.db, this.warnings);
+        List<ModuleEnum> moduleEnums = Optional.ofNullable(modules()).orElse(Collections.EMPTY_LIST);
         for (ModuleEnum moduleEnum : moduleEnums) {
-            generateJavaFiles(moduleEnum, models);
+            boolean hasSuperClass = StringUtils.isNotBlank(moduleEnum.getSuperClassName());
+            this.context.put("hasSuperClass", hasSuperClass);
+            if (hasSuperClass) {
+                this.context.put("superSimpleName", moduleEnum.getSuperClassSimpleName());
+                this.context.put("superFullName", moduleEnum.getSuperClassName());
+            }
+            generateJavaFiles(moduleEnum, tables);
         }
         this.warnings.forEach(this.log::warn);
     }
@@ -76,11 +82,7 @@ public abstract class AbstractBaseMojo extends AbstractMojo {
         }
     }
 
-    protected void setContext(VelocityContext context) {
-
-    }
-
-    private void generateJavaFiles(ModuleEnum moduleEnum, List<Model> models) throws IOException {
+    private void generateJavaFiles(ModuleEnum moduleEnum, List<Table> models) throws IOException {
         String groupId = this.project.getGroupId();
         String baseDir = this.project.getBasedir().getPath();
         String packageName = moduleEnum.getPackageName(this.project.getGroupId());

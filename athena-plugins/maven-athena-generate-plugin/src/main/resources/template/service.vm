@@ -1,17 +1,20 @@
 package ${package};
 
-import io.github.sisobobo.athena.dto.Response;
-import io.github.sisobobo.athena.dto.SingleResponse;
+import io.github.sisobobo.athena.dto.*;
 import ${groupId}.api.dto.${modelName}DTO;
 
 public interface ${fileName} {
 
-    SingleResponse<${modelName}DTO> create(${modelName}DTO ${lowModelName}DTO);
+    SingleResponse<${modelName}DTO> create(Command command);
 
-    Response delete(Long id);
+    Response deleteById(Long id);
 
-    Response modify(${modelName}DTO ${lowModelName}DTO);
+    Response updateById(Command command);
 
     SingleResponse<${modelName}DTO> findById(Long id);
+
+    PageResponse<${modelName}DTO> pageList(PageQuery pageQuery);
+
+    MultiResponse<${modelName}DTO> list(Query query);
 
 }

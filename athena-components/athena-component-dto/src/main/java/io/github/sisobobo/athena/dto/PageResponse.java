@@ -71,7 +71,7 @@ public class PageResponse<T> extends Response {
 
     public int getTotalPages() {
         return this.totalCount % this.pageSize == 0 ? this.totalCount
-            / this.pageSize : (this.totalCount / this.pageSize) + 1;
+                / this.pageSize : (this.totalCount / this.pageSize) + 1;
     }
 
     public boolean isEmpty() {
@@ -106,6 +106,16 @@ public class PageResponse<T> extends Response {
         return response;
     }
 
+    public static <T> PageResponse<T> of(PageQuery query) {
+        PageResponse<T> response = new PageResponse<>();
+        response.setSuccess(true);
+        response.setData(Collections.emptyList());
+        response.setTotalCount(0);
+        response.setPageSize(query.getPageSize());
+        response.setPageIndex(query.getPageIndex());
+        return response;
+    }
+
     public static <T> PageResponse<T> of(Collection<T> data, int totalCount, int pageSize, int pageIndex) {
         PageResponse<T> response = new PageResponse<>();
         response.setSuccess(true);
@@ -113,6 +123,16 @@ public class PageResponse<T> extends Response {
         response.setTotalCount(totalCount);
         response.setPageSize(pageSize);
         response.setPageIndex(pageIndex);
+        return response;
+    }
+
+    public static <T> PageResponse<T> of(Collection<T> data, int totalCount, PageQuery query) {
+        PageResponse<T> response = new PageResponse<>();
+        response.setSuccess(true);
+        response.setData(data);
+        response.setTotalCount(totalCount);
+        response.setPageSize(query.getPageSize());
+        response.setPageIndex(query.getPageIndex());
         return response;
     }
 

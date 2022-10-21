@@ -5,7 +5,6 @@ import io.github.sisobobo.athena.plugin.AbstractBaseMojo;
 import io.github.sisobobo.athena.plugin.enums.OrmEnum;
 import io.github.sisobobo.athena.plugin.utils.MybatisGenerator;
 import org.apache.maven.plugins.annotations.Mojo;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ public class DaoGenerateMojo extends AbstractBaseMojo {
 
     @Override
     public void executeGenerate() throws Exception {
-        OrmEnum ormEnum = Optional.ofNullable(this.condition.getOrm()).orElse(OrmEnum.MYBATIS);
+        OrmEnum ormEnum = Optional.ofNullable(OrmEnum.keyOf(this.condition.getOrm())).orElse(OrmEnum.MYBATIS);
         if (ormEnum == OrmEnum.MYBATIS) {
             MybatisGenerator.start(this.db, this.condition, this.project, this.warnings);
         } else if (ormEnum == OrmEnum.MYBATIS_PLUS) {

@@ -8,6 +8,10 @@ public class Condition {
 
     private boolean vo = false;
 
+    private boolean command = false;
+
+    private boolean query = false;
+
     private boolean controller = true;
 
     public boolean isOverwrite() {
@@ -26,6 +30,22 @@ public class Condition {
         this.orm = orm;
     }
 
+    public boolean isCommand() {
+        return command;
+    }
+
+    public void setCommand(boolean command) {
+        this.command = command;
+    }
+
+    public boolean isQuery() {
+        return query;
+    }
+
+    public void setQuery(boolean query) {
+        this.query = query;
+    }
+
     public boolean isVo() {
         return vo;
     }
@@ -42,12 +62,16 @@ public class Condition {
         this.controller = controller;
     }
 
+
+
     @Override
     public String toString() {
         return "Condition{" +
                 "overwrite=" + overwrite +
-                ", orm=" + orm +
+                ", orm='" + orm + '\'' +
                 ", vo=" + vo +
+                ", command=" + command +
+                ", query=" + query +
                 ", controller=" + controller +
                 '}';
     }

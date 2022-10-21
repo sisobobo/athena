@@ -3,10 +3,15 @@ package io.github.sisobobo.athena.plugin.enums;
 import org.apache.commons.lang3.StringUtils;
 
 public enum ModuleEnum {
-
+    //api层
     DTO("pojo.vm", "DTO", ".api.dto", "io.github.sisobobo.athena.dto.DTO"),
+    QUERY("pojo.vm", "Query", ".api.dto.query", "io.github.sisobobo.athena.dto.Query"),
+    PAGE_QUERY("pojo.vm", "PageQuery", ".api.dto.query", "io.github.sisobobo.athena.dto.PageQuery"),
+    COMMAND("pojo.vm", "Cmd", ".api.dto.command", "io.github.sisobobo.athena.dto.Command"),
     SERVICE("service.vm", "Service", ".api", ""),
+    //service层
     SERVICE_IMPL_MYBATIS("serviceImpl-mybatis.vm", "ServiceImpl", ".service", ""),
+    //web层
     VO("pojo.vm", "VO", ".web.vo", ""),
     CONTROLLER("controller.vm", "Controller", ".web", ""),
 

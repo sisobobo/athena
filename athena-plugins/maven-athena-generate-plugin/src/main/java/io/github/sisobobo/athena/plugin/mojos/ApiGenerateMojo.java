@@ -24,7 +24,7 @@ public class ApiGenerateMojo extends AbstractBaseMojo {
             list.add(ModuleEnum.COMMAND);
         }
         if (condition.isQuery()) {
-            list.add(ModuleEnum.QUERY);
+            list.addAll(Arrays.asList(ModuleEnum.QUERY, ModuleEnum.PAGE_QUERY));
         }
         return list;
     }

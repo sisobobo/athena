@@ -1,11 +1,17 @@
 package ${package};
 
-import io.github.sisobobo.athena.dto.*;
+import io.github.sisobobo.athena.dto.Response;
+import io.github.sisobobo.athena.dto.SingleResponse;
+import io.github.sisobobo.athena.dto.PageResponse;
+import io.github.sisobobo.athena.dto.MultiResponse;
+import ${commandPkg};
+import ${queryPkg};
+import ${pageQueryPkg};
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.constraints.NotNull;
 import ${groupId}.api.${modelName}Service;
-import ${groupId}.api.dto.${modelName}DTO;
+import ${voPkg};
 
 @RestController
 @RequestMapping("${mapping}")
@@ -15,13 +21,13 @@ public class ${fileName} {
     private ${modelName}Service ${lowModelName}Service;
 
     @PostMapping("")
-    public SingleResponse<${modelName}DTO> create(@NotNull @RequestBody Command command) {
+    public SingleResponse<${vo}> create(@NotNull @RequestBody ${command} command) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.create(command);
     }
 
     @PutMapping("")
-    public Response updateById(@NotNull @RequestBody Command command) {
+    public Response updateById(@NotNull @RequestBody ${command} command) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.updateById(command);
     }
@@ -39,13 +45,13 @@ public class ${fileName} {
     }
 
     @GetMapping("/list")
-    public MultiResponse<${modelName}DTO> list(@NotNull @RequestBody Query query) {
+    public MultiResponse<${vo}> list(@NotNull @RequestBody ${query} query) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.list(query);
     }
 
     @GetMapping("/page")
-    public PageResponse<${modelName}DTO> page(@NotNull @RequestBody PageQuery pageQuery) {
+    public PageResponse<${vo}> page(@NotNull @RequestBody ${pageQuery} pageQuery) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.pageList(pageQuery);
     }

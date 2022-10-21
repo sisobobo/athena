@@ -1,6 +1,12 @@
 package ${package};
 
-import io.github.sisobobo.athena.dto.*;
+import io.github.sisobobo.athena.dto.Response;
+import io.github.sisobobo.athena.dto.SingleResponse;
+import io.github.sisobobo.athena.dto.PageResponse;
+import io.github.sisobobo.athena.dto.MultiResponse;
+import ${commandPkg};
+import ${queryPkg};
+import ${pageQueryPkg};
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +30,7 @@ public class ${fileName} implements ${modelName}Service {
     private ${modelName}Mapper ${lowModelName}Mapper;
 
     @Override
-    public SingleResponse<${modelName}DTO> create(Command command) {
+    public SingleResponse<${modelName}DTO> create(${command} command) {
         //todo 完善业务逻辑
         ${modelName}DO ${lowModelName}DO = BeanCopierUtil.copy(command, ${modelName}DO.class);
         ${lowModelName}Mapper.insertSelective(${lowModelName}DO);
@@ -40,7 +46,7 @@ public class ${fileName} implements ${modelName}Service {
     }
 
     @Override
-    public Response updateById(Command command) {
+    public Response updateById(${command} command) {
         //todo 完善业务逻辑
         ${modelName}DO ${lowModelName}DO = BeanCopierUtil.copy(command, ${modelName}DO.class);
         ${lowModelName}Mapper.updateByPrimaryKey(${lowModelName}DO);
@@ -56,7 +62,7 @@ public class ${fileName} implements ${modelName}Service {
     }
 
     @Override
-    public PageResponse<${modelName}DTO> pageList(PageQuery pageQuery) {
+    public PageResponse<${modelName}DTO> pageList(${pageQuery} pageQuery) {
         //todo 完善业务逻辑
         ${modelName}DOExample example = new ${modelName}DOExample();
         long count = ${lowModelName}Mapper.countByExample(example);
@@ -72,7 +78,7 @@ public class ${fileName} implements ${modelName}Service {
     }
 
     @Override
-    public MultiResponse<${modelName}DTO> list(Query query) {
+    public MultiResponse<${modelName}DTO> list(${query} query) {
         //todo 完善业务逻辑
         ${modelName}DOExample example = new ${modelName}DOExample();
         List<${modelName}DO> doList = ${lowModelName}Mapper.selectByExample(example);

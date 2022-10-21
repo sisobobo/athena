@@ -62,6 +62,7 @@ public abstract class AbstractBaseMojo extends AbstractMojo {
     }
 
     public void executeGenerate() throws Exception {
+        this.context.put("condition", this.condition);
         List<Table> tables = JdbcUtil.getModels(this.db, this.warnings);
         List<ModuleEnum> moduleEnums = Optional.ofNullable(modules()).orElse(Collections.EMPTY_LIST);
         for (ModuleEnum moduleEnum : moduleEnums) {

@@ -28,8 +28,6 @@ public class ${fileName} implements ${modelName}Service {
     public SingleResponse<${modelName}DTO> create(Command command) {
         //todo 完善业务逻辑
         ${modelName}DO ${lowModelName}DO = BeanCopierUtil.copy(command, ${modelName}DO.class);
-        ${lowModelName}DO.setCreateTime(new Date());
-        ${lowModelName}DO.setUpdateTime(new Date());
         ${lowModelName}Mapper.insertSelective(${lowModelName}DO);
         ${modelName}DTO ${lowModelName}DTO = BeanCopierUtil.copy(${lowModelName}DO, ${modelName}DTO.class);
         return SingleResponse.of(${lowModelName}DTO);
@@ -46,7 +44,6 @@ public class ${fileName} implements ${modelName}Service {
     public Response updateById(Command command) {
         //todo 完善业务逻辑
         ${modelName}DO ${lowModelName}DO = BeanCopierUtil.copy(command, ${modelName}DO.class);
-        ${lowModelName}DO.setUpdateTime(new Date());
         ${lowModelName}Mapper.updateByPrimaryKey(${lowModelName}DO);
         return Response.success();
     }

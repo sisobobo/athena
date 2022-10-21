@@ -1,9 +1,11 @@
 package ${package};
 
-import ${groupId}.api.${modelName}Service;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.sisobobo.athena.dto.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import javax.validation.constraints.NotNull;
+import ${groupId}.api.${modelName}Service;
+import ${groupId}.api.dto.${modelName}DTO;
 
 @RestController
 @RequestMapping("${mapping}")
@@ -12,5 +14,40 @@ public class ${fileName} {
     @Autowired
     private ${modelName}Service ${lowModelName}Service;
 
+    @PostMapping("")
+    public SingleResponse<${modelName}DTO> create(@NotNull @RequestBody Command command) {
+        //todo 完善业务逻辑
+        return ${lowModelName}Service.create(command);
+    }
+
+    @PutMapping("")
+    public Response updateById(@NotNull @RequestBody Command command) {
+        //todo 完善业务逻辑
+        return ${lowModelName}Service.updateById(command);
+    }
+
+    @DeleteMapping("")
+    public Response deleteById(@NotNull @RequestParam Long id) {
+        //todo 完善业务逻辑
+        return ${lowModelName}Service.deleteById(id);
+    }
+
+    @GetMapping("")
+    public Response findById(@NotNull @RequestParam Long id) {
+        //todo 完善业务逻辑
+        return ${lowModelName}Service.findById(id);
+    }
+
+    @GetMapping("/list")
+    public MultiResponse<${modelName}DTO> list(@NotNull @RequestBody Query query) {
+        //todo 完善业务逻辑
+        return ${lowModelName}Service.list(query);
+    }
+
+    @GetMapping("/page")
+    public PageResponse<${modelName}DTO> page(@NotNull @RequestBody PageQuery pageQuery) {
+        //todo 完善业务逻辑
+        return ${lowModelName}Service.pageList(pageQuery);
+    }
 
 }

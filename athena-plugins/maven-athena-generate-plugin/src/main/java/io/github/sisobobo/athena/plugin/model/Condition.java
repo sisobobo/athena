@@ -8,7 +8,7 @@ public class Condition {
 
     private boolean vo = false;
 
-    private boolean controller = false;
+    private boolean controller = true;
 
     public boolean isOverwrite() {
         return overwrite;

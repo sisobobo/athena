@@ -144,9 +144,6 @@
                         <username>root</username>
                         <password>root</password>
                     </db>
-                    <condition>
-                        <overwrite>false</overwrite>
-                    </condition>
                 </configuration>
             </plugin>
         </plugins>

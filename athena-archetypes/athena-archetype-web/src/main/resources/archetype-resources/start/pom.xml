@@ -15,10 +15,6 @@
     <dependencies>
         <dependency>
             <groupId>${groupId}</groupId>
-            <artifactId>${rootArtifactId}-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-web</artifactId>
         </dependency>
         <dependency>

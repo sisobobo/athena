@@ -9,7 +9,7 @@ import ${queryPkg};
 import ${pageQueryPkg};
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
 import ${groupId}.api.${modelName}Service;
 import ${voPkg};
 
@@ -21,37 +21,37 @@ public class ${fileName} {
     private ${modelName}Service ${lowModelName}Service;
 
     @PostMapping("")
-    public SingleResponse<${vo}> create(@NotNull @RequestBody ${command} command) {
+    public SingleResponse<${vo}> create(@Valid @RequestBody ${command} command) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.create(command);
     }
 
     @PutMapping("")
-    public Response updateById(@NotNull @RequestBody ${command} command) {
+    public Response updateById(@Valid @RequestBody ${command} command) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.updateById(command);
     }
 
     @DeleteMapping("")
-    public Response deleteById(@NotNull @RequestParam Long id) {
+    public Response deleteById(@RequestParam Long id) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.deleteById(id);
     }
 
     @GetMapping("")
-    public Response findById(@NotNull @RequestParam Long id) {
+    public Response findById(@RequestParam Long id) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.findById(id);
     }
 
     @GetMapping("/list")
-    public MultiResponse<${vo}> list(@NotNull @RequestBody ${query} query) {
+    public MultiResponse<${vo}> list(@Valid @RequestBody ${query} query) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.list(query);
     }
 
     @GetMapping("/page")
-    public PageResponse<${vo}> page(@NotNull @RequestBody ${pageQuery} pageQuery) {
+    public PageResponse<${vo}> page(@Valid @RequestBody ${pageQuery} pageQuery) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.pageList(pageQuery);
     }

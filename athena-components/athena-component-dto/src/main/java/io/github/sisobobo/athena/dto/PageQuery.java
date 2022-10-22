@@ -1,6 +1,7 @@
 package io.github.sisobobo.athena.dto;
 
 public abstract class PageQuery extends Query {
+
     private static final long serialVersionUID = 1L;
 
     public static final String ASC = "ASC";

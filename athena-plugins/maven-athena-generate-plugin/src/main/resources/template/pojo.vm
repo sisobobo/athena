@@ -21,6 +21,8 @@ import $pkg;
 @Data
 public class ${fileName}#if($hasSuperClass) extends ${superSimpleName}#else implements Serializable #end{
 
+    private static final long serialVersionUID = 1L;
+
 #foreach($data in $model.fields)
 #if($data.remarks != "")
     /**

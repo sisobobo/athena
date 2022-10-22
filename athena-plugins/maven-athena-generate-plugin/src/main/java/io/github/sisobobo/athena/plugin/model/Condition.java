@@ -8,9 +8,9 @@ public class Condition {
 
     private boolean vo = false;
 
-    private boolean command = false;
+    private boolean command = true;
 
-    private boolean query = false;
+    private boolean query = true;
 
     private boolean controller = true;
 

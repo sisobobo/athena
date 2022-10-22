@@ -15,10 +15,4 @@
         <module>maven-athena-generate-plugin</module>
     </modules>
 
-    <dependencies>
-
-
-
-    </dependencies>
-
 </project>

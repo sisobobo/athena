@@ -16,6 +16,8 @@
         <module>athena-components-bom</module>
         <module>athena-component-dto</module>
         <module>athena-component-catchlog-starter</module>
+        <module>athena-component-validator-starter</module>
+        <module>athena-component-validator-api</module>
     </modules>
 
     <properties>

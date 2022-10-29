@@ -49,7 +49,7 @@ public class ${fileName} implements ${modelName}Service {
     public Response updateById(${command} command) {
         //todo 完善业务逻辑
         ${modelName}DO ${lowModelName}DO = BeanCopierUtil.copy(command, ${modelName}DO.class);
-        ${lowModelName}Mapper.updateByPrimaryKey(${lowModelName}DO);
+        ${lowModelName}Mapper.updateByPrimaryKeySelective(${lowModelName}DO);
         return Response.success();
     }
 

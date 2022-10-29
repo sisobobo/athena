@@ -44,13 +44,13 @@ public class ${fileName} {
         return ${lowModelName}Service.findById(id);
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public MultiResponse<${vo}> list(@Valid @RequestBody ${query} query) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.list(query);
     }
 
-    @GetMapping("/page")
+    @PostMapping("/page")
     public PageResponse<${vo}> page(@Valid @RequestBody ${pageQuery} pageQuery) {
         //todo 完善业务逻辑
         return ${lowModelName}Service.pageList(pageQuery);

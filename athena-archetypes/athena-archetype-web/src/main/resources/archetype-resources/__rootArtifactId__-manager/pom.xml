@@ -17,6 +17,10 @@
             <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-dao</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.sisobobo</groupId>
+            <artifactId>athena-component-exception</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

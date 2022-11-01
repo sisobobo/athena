@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>${groupId}</groupId>
-            <artifactId>${rootArtifactId}-service</artifactId>
+            <artifactId>${rootArtifactId}-api</artifactId>
         </dependency>
     </dependencies>
 

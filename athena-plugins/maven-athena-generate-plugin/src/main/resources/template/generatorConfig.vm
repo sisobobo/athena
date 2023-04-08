@@ -53,6 +53,7 @@
         <!--配置数据库的链接信息-->
         <jdbcConnection driverClass="${jdbc_driver}" connectionURL="${jdbc_url}" userId="${jdbc_username}"
                         password="${jdbc_password}">
+            <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
         <!--数据库BigDecimals字段在java中定义-->

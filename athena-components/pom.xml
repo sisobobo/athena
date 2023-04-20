@@ -5,7 +5,7 @@
     <parent>
         <artifactId>athena</artifactId>
         <groupId>io.github.sisobobo</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>athena-components</artifactId>
@@ -18,6 +18,7 @@
         <module>athena-component-catchlog-starter</module>
         <module>athena-component-validator-starter</module>
         <module>athena-component-validator-api</module>
+        <module>athena-component-serializer</module>
     </modules>
 
     <properties>

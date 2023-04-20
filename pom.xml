@@ -7,7 +7,7 @@
     <groupId>io.github.sisobobo</groupId>
     <artifactId>athena</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <modules>
         <module>athena-archetypes</module>
         <module>athena-components</module>
